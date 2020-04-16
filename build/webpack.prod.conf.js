@@ -62,7 +62,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.build.index,
-      template: './index.html',
+      template: './public/index.html',
       inject: true,
       minify: {
         removeComments: true,
@@ -109,9 +109,9 @@ const webpackConfig = merge(baseWebpackConfig, {
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: path.resolve(__dirname, '../public'),
         to: config.build.assetsSubDirectory,
-        ignore: ['.*']
+        ignore: ['index.html', '.gitkeep']
       }
     ])
   ]

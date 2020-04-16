@@ -60,15 +60,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './index.html',
+      template: './public/index.html',
       inject: true
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: path.resolve(__dirname, '../public'),
         to: config.dev.assetsSubDirectory,
-        ignore: ['.html']
+        ignore: ['*.html']
       }
     ])
   ]
