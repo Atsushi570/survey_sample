@@ -8,9 +8,7 @@
 
     <div class="buttons">
       <a class="button is-dark">ログイン</a>
-      <a class="button is-primary">
-        <strong>新規登録</strong>
-      </a>
+      <a class="button is-primary">新規登録</a>
     </div>
   </nav>
 </template>
