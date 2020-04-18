@@ -8,22 +8,22 @@
       <div class="select">
         <select name="birth-year" v-model="result.year" @change="changeNotice">
           <option
-            v-for="i in 70"
-            :key="i"
-            :value="result.startYear - i + 1"
-          >{{getChoice(result.startYear -i +1)}}</option>
+            v-for="yearIndex in 70"
+            :key="yearIndex"
+            :value="result.startYear - yearIndex + 1"
+          >{{getChoice(result.startYear -yearIndex +1)}}</option>
         </select>
       </div>
       <span>年</span>
       <div class="select">
         <select name="birth-month" v-model="result.month" @change="changeNotice">
-          <option v-for="i in 12" :key="i" :value="i">{{i}}</option>
+          <option v-for="monthIndex in 12" :key="monthIndex" :value="monthIndex">{{diffMonth}}</option>
         </select>
       </div>
       <span>月</span>
       <div class="select">
         <select name="birth-date" v-model="result.date" @change="changeNotice">
-          <option v-for="i in 31" :key="i" :value="i">{{i}}</option>
+          <option v-for="dateIndex in 31" :key="dateIndex" :value="dateIndex">{{dateIndex}}</option>
         </select>
       </div>
       <span>日</span>
@@ -51,12 +51,12 @@ export default {
       ) {
         return '無効な日付です'
       } else {
-        const dt = new Date(
+        const dateForCheck = new Date(
           this.result.year,
           this.result.month - 1,
           this.result.date
         )
-        return dt.getDate() !== this.result.date ? '無効な日付です' : ''
+        return dateForCheck.getDate() !== this.result.date ? '無効な日付です' : ''
       }
     }
   },
