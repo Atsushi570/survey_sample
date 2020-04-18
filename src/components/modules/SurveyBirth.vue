@@ -17,7 +17,7 @@
       <span>年</span>
       <div class="select">
         <select name="birth-month" v-model="result.month" @change="changeNotice">
-          <option v-for="monthIndex in 12" :key="monthIndex" :value="monthIndex">{{diffMonth}}</option>
+          <option v-for="monthIndex in 12" :key="monthIndex" :value="monthIndex">{{monthIndex}}</option>
         </select>
       </div>
       <span>月</span>
