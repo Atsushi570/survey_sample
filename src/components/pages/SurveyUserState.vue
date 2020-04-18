@@ -21,12 +21,12 @@
             <SurveyRadio
               :content="{...this.currentHealth, storedResult:this.storedCurrentHealth}"
               v-model="currentHealth.result"
-              v-if="joinedInsurance.result !== ''"
+              v-if="joinedInsurance.result"
             ></SurveyRadio>
             <SurveyRadio
               :content="{...this.pastHealth, storedResult:this.storedPastHealth}"
               v-model="pastHealth.result"
-              v-if="currentHealth.result !== ''"
+              v-if="currentHealth.result"
             ></SurveyRadio>
           </div>
         </div>
@@ -97,9 +97,9 @@ export default {
     // ページ内のすべての入力が正しい場合はtrueを返す
     validateResults () {
       return (
-        this.joinedInsurance.result !== '' &&
-        this.currentHealth.result !== '' &&
-        this.pastHealth.result !== ''
+        this.joinedInsurance.result &&
+        this.currentHealth.result &&
+        this.pastHealth.result
       )
     },
 

@@ -69,7 +69,7 @@ export default {
   computed: {
     // ページ内のすべての入力が正しい場合はtrueを返す
     validateResults () {
-      return this.request.result !== ''
+      return this.request.result
     },
 
     // storeへのアクセス

@@ -71,7 +71,7 @@ export default {
   computed: {
     // ページ内のすべての入力が正しい場合はtrueを返す
     validateResults () {
-      return this.gender.result !== '' && this.dateOfBirth.isCollect
+      return this.gender.result && this.dateOfBirth.isCollect
     },
 
     // storeへのアクセス
