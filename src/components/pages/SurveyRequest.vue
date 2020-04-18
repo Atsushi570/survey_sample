@@ -14,7 +14,7 @@
         </header>
         <div class="card-content">
           <div class="content">
-            <SurveyTextarea :content="step31" v-model="step31.result"></SurveyTextarea>
+            <SurveyTextarea :content="request" v-model="request.result"></SurveyTextarea>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
     <div class="error" v-else>
       <p>不正なページ遷移を検出しました。</p>
       <div class="buttons">
-        <button class="button is-primary" @click="$router.push({ name: 'step1' })">
+        <button class="button is-primary" @click="$router.push({ name: 'surveyUserProfile' })">
           ホームへ戻る
           <font-awesome-icon icon="angle-right" />
         </button>
@@ -59,7 +59,7 @@ export default {
 
   data () {
     return {
-      step31: {
+      request: {
         title: '-ご依頼内容-',
         result: ''
       }
@@ -69,23 +69,18 @@ export default {
   computed: {
     // ページ内のすべての入力が正しい場合はtrueを返す
     validateResults () {
-      return this.step31.result !== ''
+      return this.request.result !== ''
     },
 
     // storeへのアクセス
-    ...mapGetters('Step2', [
-      'storedResult21',
-      'storedResult22',
-      'storedResult23'
-    ]),
-    ...mapGetters('Step3', ['storedResult31']),
+    ...mapGetters('SurveyResults', ['storedJoinedInsurance', 'storedCurrentHealth', 'storedPastHealth', 'storedRequest']),
 
     // 前ページの入力が完了していればtrueを返す
     isProcedureCollect () {
       return (
-        this.storedResult21 !== undefined &&
-        this.storedResult22 !== undefined &&
-        this.storedResult23 !== undefined
+        this.storedJoinedInsurance.isCommitted &&
+        this.storedCurrentHealth.isCommitted &&
+        this.storedPastHealth.isCommitted
       )
     }
   },
@@ -93,10 +88,8 @@ export default {
   methods: {
     // storeへ入力値をコミットしたのち、次のステップページへ遷移する
     toNextStep () {
-      this.$store.commit('Step3/setResults', {
-        step31: this.step31
-      })
-      this.$router.push({ name: 'step4' })
+      this.$store.commit('SurveyResults/setRequest', this.request)
+      this.$router.push({ name: 'confirmResults' })
     },
 
     // numの数だけブラウザ履歴を元にページ遷移する
@@ -107,7 +100,7 @@ export default {
 
   created () {
     // storeに値が入っている場合はdataに反映する
-    this.step31 = this.storedResult31 || this.step31
+    this.request = this.storedRequest.isCommitted ? this.storedRequest : this.request
   }
 }
 </script>

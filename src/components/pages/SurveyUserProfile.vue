@@ -15,12 +15,12 @@
         <div class="card-content">
           <div class="content">
             <SurveyRadio
-              :content="{...this.step11, storedResult:this.storedResult11}"
-              v-model="step11.result"
+              :content="{ ...this.gender, storedResult: this.storedGender }"
+              v-model="gender.result"
             ></SurveyRadio>
             <SurveyBirth
-              :content="{...this.step12, storedResult:this.storedResult12}"
-              v-model="step12"
+              :content="{ ...this.dateOfBirth, storedResult: this.storedDateOfBirth }"
+              v-model="dateOfBirth"
             ></SurveyBirth>
           </div>
         </div>
@@ -53,12 +53,12 @@ export default {
 
   data: function () {
     return {
-      step11: {
+      gender: {
         title: '-性別-',
         choices: ['男性', '女性'],
         result: ''
       },
-      step12: {
+      dateOfBirth: {
         year: 0,
         month: 0,
         date: 0,
@@ -71,28 +71,26 @@ export default {
   computed: {
     // ページ内のすべての入力が正しい場合はtrueを返す
     validateResults () {
-      return this.step11.result !== '' && this.step12.isCollect
+      return this.gender.result !== '' && this.dateOfBirth.isCollect
     },
 
     // storeへのアクセス
-    ...mapGetters('Step1', ['storedResult11', 'storedResult12'])
+    ...mapGetters('SurveyResults', ['storedGender', 'storedDateOfBirth'])
   },
 
   methods: {
     // storeへ入力値をコミットしたのち、次のステップページへ遷移する
     toNextStep () {
-      this.$store.commit('Step1/setResults', {
-        step11: this.step11,
-        step12: this.step12
-      })
-      this.$router.push({ name: 'step2' })
+      this.$store.commit('SurveyResults/setGender', this.gender)
+      this.$store.commit('SurveyResults/setDateOfBirth', this.dateOfBirth)
+      this.$router.push({ name: 'surveyUserState' })
     }
   },
 
   // storeにアクセス可能なcreatedでstoreに値が入っている場合はdataに反映する
   created () {
-    this.step11 = this.storedResult11 || this.step11
-    this.step12 = this.storedResult12 || this.step12
+    this.gender = this.storedGender.isCommitted ? this.storedGender : this.gender
+    this.dateOfBirth = this.storedDateOfBirth.isCommitted ? this.storedDateOfBirth : this.dateOfBirth
   }
 }
 </script>

@@ -15,18 +15,18 @@
         <div class="card-content">
           <div class="content">
             <SurveyRadio
-              :content="{...this.step21, storedResult: this.storedResult21}"
-              v-model="step21.result"
+              :content="{...this.joinedInsurance, storedResult: this.storedJoinedInsurance}"
+              v-model="joinedInsurance.result"
             ></SurveyRadio>
             <SurveyRadio
-              :content="{...this.step22, storedResult:this.storedResult22}"
-              v-model="step22.result"
-              v-if="step21.result !== ''"
+              :content="{...this.currentHealth, storedResult:this.storedCurrentHealth}"
+              v-model="currentHealth.result"
+              v-if="joinedInsurance.result !== ''"
             ></SurveyRadio>
             <SurveyRadio
-              :content="{...this.step23, storedResult:this.storedResult23}"
-              v-model="step23.result"
-              v-if="step22.result !== ''"
+              :content="{...this.pastHealth, storedResult:this.storedPastHealth}"
+              v-model="pastHealth.result"
+              v-if="currentHealth.result !== ''"
             ></SurveyRadio>
           </div>
         </div>
@@ -46,7 +46,7 @@
     <div class="error" v-else>
       <p>不正なページ遷移を検出しました。</p>
       <div class="buttons">
-        <button class="button is-primary" @click="$router.push({ name: 'step1' })">
+        <button class="button is-primary" @click="$router.push({ name: 'surveyUserProfile' })">
           ホームへ戻る
           <font-awesome-icon icon="angle-right" />
         </button>
@@ -73,18 +73,18 @@ export default {
 
   data: function () {
     return {
-      step21: {
+      joinedInsurance: {
         title: '現在、生命保険に加入されていますか？',
         choices: ['はい', 'いいえ'],
         result: ''
       },
-      step22: {
+      currentHealth: {
         title:
           '現在入院中ですか？または、最近3か月以内に医師の診療・検査の結果、入院・手術を勧められたことはありますか？',
         choices: ['はい', 'いいえ'],
         result: ''
       },
-      step23: {
+      pastHealth: {
         title:
           '過去5年以内に、病気やけがで、手術を受けたことまたは継続して7日以上の入院をしたことがありますか？',
         choices: ['はい', 'いいえ'],
@@ -97,24 +97,19 @@ export default {
     // ページ内のすべての入力が正しい場合はtrueを返す
     validateResults () {
       return (
-        this.step21.result !== '' &&
-        this.step22.result !== '' &&
-        this.step23.result !== ''
+        this.joinedInsurance.result !== '' &&
+        this.currentHealth.result !== '' &&
+        this.pastHealth.result !== ''
       )
     },
 
     // storeへのアクセス
-    ...mapGetters('Step2', [
-      'storedResult21',
-      'storedResult22',
-      'storedResult23'
-    ]),
-    ...mapGetters('Step1', ['storedResult11', 'storedResult12']),
+    ...mapGetters('SurveyResults', ['storedGender', 'storedDateOfBirth', 'storedJoinedInsurance', 'storedCurrentHealth', 'storedPastHealth']),
 
     // 前ページの入力が完了していればtrueを返す
     isProcedureCollect () {
       return (
-        this.storedResult11 !== undefined && this.storedResult12 !== undefined
+        this.storedGender.isCommitted && this.storedDateOfBirth.isCommitted
       )
     }
   },
@@ -122,12 +117,10 @@ export default {
   methods: {
     // storeへ入力値をコミットしたのち、次のステップページへ遷移する
     toNextStep () {
-      this.$store.commit('Step2/setResults', {
-        step21: this.step21,
-        step22: this.step22,
-        step23: this.step23
-      })
-      this.$router.push({ name: 'step3' })
+      this.$store.commit('SurveyResults/setJoinedInsurance', this.joinedInsurance)
+      this.$store.commit('SurveyResults/setCurrentHealth', this.currentHealth)
+      this.$store.commit('SurveyResults/setPastHealth', this.pastHealth)
+      this.$router.push({ name: 'surveyRequest' })
     },
 
     // numの数だけブラウザ履歴を元にページ遷移する
@@ -138,9 +131,9 @@ export default {
 
   created () {
     // storeに値が入っている場合はdataに反映する
-    this.step21 = this.storedResult21 || this.step21
-    this.step22 = this.storedResult22 || this.step22
-    this.step23 = this.storedResult23 || this.step23
+    this.joinedInsurance = this.storedJoinedInsurance.isCommitted ? this.storedJoinedInsurance : this.joinedInsurance
+    this.currentHealth = this.storedCurrentHealth.isCommitted ? this.storedCurrentHealth : this.currentHealth
+    this.pastHealth = this.storedPastHealth.isCommitted ? this.storedPastHealth : this.pastHealth
   }
 }
 </script>

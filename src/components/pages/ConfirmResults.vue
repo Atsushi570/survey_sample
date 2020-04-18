@@ -15,38 +15,38 @@
         <div class="card-content">
           <div class="content">
             <div class="survey-content">
-              <p class="has-text-info">{{storedResult11.title}}</p>
-              <p class="result">{{storedResult11.result}}</p>
+              <p class="has-text-info">{{storedGender.title}}</p>
+              <p class="result">{{storedGender.result}}</p>
             </div>
           </div>
           <div class="content">
             <div class="survey-content">
-              <p class="has-text-info">{{storedResult12.title}}</p>
-              <p class="result">{{storedResult12.result}}</p>
+              <p class="has-text-info">{{storedDateOfBirth.title}}</p>
+              <p class="result">{{storedDateOfBirth.result}}</p>
             </div>
           </div>
           <div class="content">
             <div class="survey-content">
-              <p class="has-text-info">-{{storedResult21.title}}-</p>
-              <p class="result">{{storedResult21.result}}</p>
+              <p class="has-text-info">-{{storedJoinedInsurance.title}}-</p>
+              <p class="result">{{storedJoinedInsurance.result}}</p>
             </div>
           </div>
           <div class="content">
             <div class="survey-content">
-              <p class="has-text-info">-{{storedResult22.title}}-</p>
-              <p class="result">{{storedResult22.result}}</p>
+              <p class="has-text-info">-{{storedCurrentHealth.title}}-</p>
+              <p class="result">{{storedCurrentHealth.result}}</p>
             </div>
           </div>
           <div class="content">
             <div class="survey-content">
-              <p class="has-text-info">-{{storedResult23.title}}-</p>
-              <p class="result">{{storedResult23.result}}</p>
+              <p class="has-text-info">-{{storedPastHealth.title}}-</p>
+              <p class="result">{{storedPastHealth.result}}</p>
             </div>
           </div>
           <div class="content">
             <div class="survey-content">
-              <p class="has-text-info">{{storedResult31.title}}</p>
-              <p class="result">{{storedResult31.result}}</p>
+              <p class="has-text-info">{{storedRequest.title}}</p>
+              <p class="result">{{storedRequest.result}}</p>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
     <div class="error" v-else>
       <p>不正なページ遷移を検出しました。</p>
       <div class="buttons">
-        <button class="button is-primary" @click="$router.push({ name: 'step1' })">
+        <button class="button is-primary" @click="$router.push({ name: 'surveyUserProfile' })">
           ホームへ戻る
           <font-awesome-icon icon="angle-right" />
         </button>
@@ -88,17 +88,11 @@ export default {
 
   computed: {
     // storeへのアクセス
-    ...mapGetters('Step1', ['storedResult11', 'storedResult12']),
-    ...mapGetters('Step2', [
-      'storedResult21',
-      'storedResult22',
-      'storedResult23'
-    ]),
-    ...mapGetters('Step3', ['storedResult31']),
+    ...mapGetters('SurveyResults', ['storedGender', 'storedDateOfBirth', 'storedJoinedInsurance', 'storedCurrentHealth', 'storedPastHealth', 'storedRequest']),
 
     // 前ページの入力が完了していればtrueを返す
     isProcedureCollect () {
-      return this.storedResult31 !== undefined
+      return this.storedRequest.isCommitted
     }
   },
   methods: {

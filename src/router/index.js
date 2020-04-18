@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Step1 from '../components/pages/Step1.vue'
-import Step2 from '../components/pages/Step2.vue'
-import Step3 from '../components/pages/Step3.vue'
-import Step4 from '../components/pages/Step4.vue'
+import SurveyUserProfile from '../components/pages/SurveyUserProfile'
+import SurveyUserState from '../components/pages/SurveyUserState'
+import SurveyRequest from '../components/pages/SurveyRequest'
+import ConfirmResults from '../components/pages/ConfirmResults'
 
 Vue.use(VueRouter)
 
@@ -11,24 +11,24 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      name: 'step1',
+      name: 'surveyUserProfile',
       path: '/',
-      component: Step1
+      component: SurveyUserProfile
     },
     {
-      name: 'step2',
-      path: '/step2',
-      component: Step2
+      name: 'surveyUserState',
+      path: '/surveyUserState',
+      component: SurveyUserState
     },
     {
-      name: 'step3',
-      path: '/step3',
-      component: Step3
+      name: 'surveyRequest',
+      path: '/surveyRequest',
+      component: SurveyRequest
     },
     {
-      name: 'step4',
-      path: '/step4',
-      component: Step4
+      name: 'confirmResults',
+      path: '/confirmResults',
+      component: ConfirmResults
     }
   ]
 })
