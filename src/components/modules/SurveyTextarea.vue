@@ -16,17 +16,6 @@
 
 <script>
 export default {
-  /**
-   *親コンポーネントから以下のオブジェクトを受け取る
-      <オブジェクト名>: {
-        title: 質問内容,
-        choices: 選択肢の配列,
-        result: storeに回答がある場合は回答内容、ない場合は''
-      }
-   */
-  // model: {
-  //   event: 'changed'
-  // },
   data: function () {
     return {
       result: ''
