@@ -1,0 +1,75 @@
+/*--------------------------------------------------------------
+# GLOBAL
+--------------------------------------------------------------*/
+html{
+	scroll-behavior : smooth;
+}
+body{
+	font-family : 'Lato', 'Noto Sans JP', '游ゴシック Medium', '游ゴシック体',
+	'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN',
+	'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック',
+	'MS PGothic', sans-serif;
+	letter-spacing : 0.1em;
+	line-height : 1.9;
+	color : #545454;
+}
+
+.container{
+	margin : 10vh 2vw;
+}
+.card{
+	margin-bottom : 5vh;
+	border : 1px solid hsl(204, 86%, 53%);
+	border-radius : 3px;
+}
+.card-header{
+	position : relative;
+	border-bottom : 1px solid hsl(204, 86%, 53%);
+	background-color : lightblue;
+}
+.card-header .fa-chalkboard-teacher{
+	margin-right : 1vw;
+}
+.card-header .box{
+	position : absolute;
+	top : 0;
+	left : 0;
+	margin : 0;
+	padding : 2px;
+	border-radius : 3px;
+}
+.card-header-title p{
+	margin : auto;
+}
+.content{
+	font-size : 14px;
+}
+.content > div{
+	margin-bottom : 5vh;
+}
+.buttons{
+	display : flex;
+	flex-direction : row;
+	justify-content : center;
+}
+.buttons .button:not(:last-child){
+	margin-right : 5vw;
+}
+.button[disabled]{
+	cursor : default;
+}
+.button .fa-angle-right{
+	margin-left : 1vw;
+}
+.footer{
+	padding : 2vw 0;
+}
+.footer .container{
+	margin : 0;
+}
+.error p{
+	margin : 10vh 2vw;
+}
+.error .buttons{
+	margin : 10vh 0;
+}
